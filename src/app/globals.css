@@ -34,3 +34,9 @@ body {
   background: var(--bg-pr);
   font-family: Poppins, sans-serif;
 }
+
+@layer base {
+  h2 {
+    @apply text-2xl font-bold
+  }
+}

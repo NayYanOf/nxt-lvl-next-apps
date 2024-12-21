@@ -1,8 +1,8 @@
 Esse projeto tem como objetivo servir de base para a refatoração da Plataforma LXP EAD.
 
 REFATORAÇÃO DOS COMPONENTES BÁSICOS
-1 - Botões
-2 - Ícones
+1 - Botões OK
+2 - Ícones OK
 3 - Campos de Input
 4 - Blocos de Conteúdos
 5 - Menu Lateral

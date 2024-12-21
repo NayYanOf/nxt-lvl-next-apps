@@ -67,7 +67,7 @@ export default function DynamicButton(props: ButtonProps) {
     const IconDirection = icon?.direction || 'right';
 
     return (
-        <button {...rest} className={`rounded-sm flex justify-center items-center gap-2 border-2 border-solid font-medium transition-colors ${buttonStyle} ${buttonSizing} ${className}`}>
+        <button {...rest} className={`rounded-sm flex justify-center items-center gap-2 border-2 border-solid font-medium transition-colors duration-300 ${buttonStyle} ${buttonSizing} ${className}`}>
             {IconDirection === 'start' && IconComponent}
             <span>{children}</span>
             {IconDirection === 'end' && IconComponent}
