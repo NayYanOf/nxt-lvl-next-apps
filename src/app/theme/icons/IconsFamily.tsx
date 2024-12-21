@@ -7,7 +7,7 @@ type Icons = {
     altText?: string,
 }
 
-export const IconsFamily: Record<string, Icons> = {
+const icons: Record<string, Icons> = {
     chevronLeft: {
         name: 'chevron-left',
         Icon: <FiChevronsLeft />,
@@ -19,3 +19,9 @@ export const IconsFamily: Record<string, Icons> = {
         altText: 'Ícone de seta para a direita',
     },
 };
+
+export const getIconByName = (name: string): ReactNode | null => {
+    return icons[name]?.Icon || null;
+};
+
+export default icons;
