@@ -1,27 +1,31 @@
 import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
-import { ReactNode } from "react";
+import { ReactNode, ReactElement, cloneElement } from "react";
 
 type Icons = {
     name: string,
-    Icon: ReactNode,
+    Icon: ReactElement,
     altText?: string,
 }
 
 const icons: Record<string, Icons> = {
     chevronLeft: {
         name: 'chevron-left',
-        Icon: <FiChevronsLeft />,
+        Icon: <FiChevronsLeft color="white" />,
         altText: 'Ícone de seta para a esquerda',
     },
     chevronRight: {
         name: 'chevron-right',
-        Icon: <FiChevronsRight />,
+        Icon: <FiChevronsRight color="white" />,
         altText: 'Ícone de seta para a direita',
     },
 };
 
-export const getIconByName = (name: string): ReactNode | null => {
-    return icons[name]?.Icon || null;
+export const getIconByName = (name: string, color: string = 'white', size: number = 20): ReactNode | null => {
+    const icon = icons[name]?.Icon
+    if(icon) {
+        return cloneElement(icon, {color: color, size: size})
+    }
+    return null;
 };
 
 export default icons;

@@ -1,21 +1,34 @@
-import DefaultButton from "./DefaultButton"
-import { ReactElement, ReactNode } from "react"
+import DynamicButton from "./DynamicButton"
+import { ButtonHTMLAttributes } from "react"
 import { getIconByName } from "../../theme/icons/IconsFamily"
 
-interface ContainerProps {
+interface ButtonContainerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     name: string,
-    icon?: string,
-    variant?: 'default' | 'primary' | 'submit' | 'navigation' | 'cancel'
+    icon?: {
+        name: string,
+        color?: string,
+        size?: number,
+        direction?: 'start' | 'end'
+    },
+    variant?: 'default' | 'transparent' | 'submit' | 'cancel' | 'off',
+    size?: 'sm' | 'md' | 'lg'
 }
 
-export default function ButtonsContainer ({name, icon, variant}: ContainerProps) {
-    const IconComponent = icon ? getIconByName(icon) : null;
+export default function ButtonsContainer(props: ButtonContainerProps) {
+    const { name, icon, variant = 'default', size = 'md', ...rest } = props;
+    const IconComponent = icon ? getIconByName(icon.name) : null;
 
-    switch(variant) {
-        case 'primary':
-            return <DefaultButton icon={IconComponent}>{name}</DefaultButton>
-            break
-        default:
-            return <DefaultButton icon={IconComponent}>{name}</DefaultButton>
-    }
+    return <DynamicButton
+        {...rest}
+        icon={{
+            render: IconComponent,
+            color: icon?.color,
+            size: icon?.size,
+            direction: icon?.direction
+        }}
+        variant={variant}
+        size={size}
+    >
+        {name}
+    </DynamicButton>
 }
