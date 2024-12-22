@@ -1,21 +1,31 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, useState } from "react";
+import { getIconByName } from "../../theme/icons/IconsFamily";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+    id: string;
     label?: string;
     placeholder?: string;
-    type?: 'text' | 'number' | 'email' | 'password' | 'checkbox' | 'radio' | 'date' | 'time' | 'datetime' | 'url' | 'tel';
+    type?: 'text' | 'number' | 'password' | 'checkbox' | 'radio' | 'date' | 'time' | 'datetime';
     rows?: number;
     inputSize?: 'sm' | 'md' | 'lg';
+    radioOptions?: Array<
+        {
+            label: string,
+            value: string | number,
+            id: string,
+            defaultChecked?: boolean
+        }>
 }
 
 export default function DynamicInput(props: InputProps) {
-    const { label, placeholder, type = 'text', multiple, rows, inputSize, ...rest } = props;
+    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, ...rest } = props;
     let input = null;
+    const [showPassword, setShowPassword] = useState(false);
 
     let inputSizing
-    switch(inputSize) {
+    switch (inputSize) {
         case 'sm':
-            inputSizing = 'py-1';
+            inputSizing = 'p-1 text-sm';
             break;
         case 'md':
             inputSizing = 'px-2 py-1';
@@ -29,47 +39,110 @@ export default function DynamicInput(props: InputProps) {
     }
 
     let baseStyles = `rounded-sm placeholder:text-zinc-400 placeholder:text-sm border-solid border-b-2 border-zinc-700 focus:border-blue-500 transition-all duration-300 bg-zinc-800 ${inputSizing}`;
-    switch(type) {
+    let fieldGrpStyles = 'flex flex-col gap-1'
+    switch (type) {
         case 'text':
-            input = <input type='text' placeholder={placeholder} className={baseStyles} {...rest} />;
+            input = <input id={id} type='text' placeholder={placeholder} className={baseStyles} {...rest} />;
             break;
         case 'number':
-            input = <input type='number' placeholder={placeholder} {...rest} className={baseStyles} />;
-            break;
-        case 'email':
-            input = <input type='email' placeholder={placeholder} {...rest} className={baseStyles} />;
+            input = <input id={id} type='number' placeholder={placeholder} {...rest} className={baseStyles} />;
             break;
         case 'password':
-            input = <input type='password' placeholder={placeholder} {...rest} className={baseStyles} />;
+            input = <div className="flex relative">
+                <input id={id} type={showPassword ? 'text' : 'password'} placeholder={placeholder} {...rest} className={baseStyles} />
+                <div className="absolute right-2 top-2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+                    {
+                        getIconByName(showPassword ? 'eyeOff' : 'eye', 'white', 16)
+                    }
+                </div>
+            </div>
             break;
         case 'checkbox':
-            input = <input type='checkbox' {...rest} className={baseStyles} />;
+            input = <div className="flex gap-2">
+                <input id={id} type='checkbox' {...rest} className='hidden peer' />
+                <label
+                    className="
+                        flex
+                        items-center
+                        font-medium
+                        text-white
+                        before:content-['']
+                        before:block
+                        before:transition-colors
+                        before:duration-200
+                        before:w-3
+                        before:h-3
+                        before:bg-transparent
+                        before:mr-2
+                        before:rounded-sm
+                        before:outline
+                        before:outline-2
+                        before:outline-white
+                        peer-checked:before:bg-blue-500
+                        peer-checked:before:border-solid
+                        peer-checked:before:border-2
+                        peer-checked:before:border-[var(--bg-pr)]
+                        peer-checked:before:outline
+                        peer-checked:before:outline-2
+                        peer-checked:before:outline-white
+                    "
+                    htmlFor={id}
+                >
+                    {label}
+                </label>
+            </div>;
+            fieldGrpStyles = 'flex flex-row-reverse justify-end gap-2'
             break;
         case 'radio':
-            input = <input type='radio' {...rest} className={baseStyles} />;
+            input = input = <div className="flex flex-col gap-2">{
+                radioOptions?.map((i, index) => (
+                    <div className="flex gap-2" key={index}>
+                        <input type="radio" id={i.id} name={id} value={i.value} defaultChecked={i.defaultChecked} className="hidden peer" />
+                        <label htmlFor={i.id} className="
+                            flex
+                            items-center
+                            before:content-['']
+                            before:block
+                            before:transition-colors
+                            before:duration-200
+                            before:w-3
+                            before:h-3
+                            before:bg-transparent
+                            before:mr-2
+                            before:rounded-full
+                            before:outline
+                            before:outline-2
+                            before:outline-white
+                            peer-checked:before:bg-blue-500
+                            peer-checked:before:border-solid
+                            peer-checked:before:border-2
+                            peer-checked:before:border-[var(--bg-pr)]
+                            peer-checked:before:outline
+                            peer-checked:before:outline-2
+                            peer-checked:before:outline-white
+                        ">{i.label}</label>
+                    </div>
+                ))
+            }</div>
+            fieldGrpStyles = 'gap-2'
             break;
         case 'date':
-            input = <input type='date' {...rest} className={baseStyles} />;
+            input = <input id={id} type='date' {...rest} className={`${baseStyles} bw-input-icon-color`} />;
             break;
         case 'time':
-            input = <input type='time' {...rest} className={baseStyles} />;
+            input = <input id={id} type='time' {...rest} className={`${baseStyles} bw-input-icon-color`} />;
             break;
         case 'datetime':
-            input = <input type='datetime-local' {...rest} className={baseStyles} />;
+            input = <input id={id} type='datetime-local' {...rest} className={`${baseStyles} bw-input-icon-color`} />;
             break;
-        case 'url':
-            input = <input type='url' placeholder={placeholder} {...rest} className={baseStyles} />;
-            break;
-        case 'tel':
-            input = <input type='tel' placeholder={placeholder} {...rest} className={baseStyles}/>;
         default:
-            input = <input type='text' placeholder={placeholder} {...rest} className={baseStyles} />;
+            input = <input id={id} type='text' placeholder={placeholder} {...rest} className={baseStyles} />;
             break;
     }
 
     return (
-        <div className="flex flex-col gap-1">
-            {label && <label className="font-medium text-white" >{label}</label>}
+        <div className={fieldGrpStyles}>
+            {label && type !== 'checkbox' && <label className="font-medium text-white" htmlFor={id} >{label}</label>}
             {input}
         </div>
     )

@@ -30,11 +30,14 @@
 }
 
 body {
-  color: var(--txt-pr);
-  background: var(--bg-pr);
   font-family: Poppins, sans-serif;
 }
+
 @layer base {
+  body {
+    @apply text-white bg-[var(--bg-pr)] p-4
+  }
+
   h1 {
     @apply text-3xl font-bold
   }
@@ -45,5 +48,23 @@ body {
 
   input {
     @apply outline-0
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-[5px]
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-white rounded-full
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-blue-500 rounded-full
+  }
+}
+
+@layer components {
+  .bw-input-icon-color::-webkit-calendar-picker-indicator {
+    filter: invert(1);
   }
 }

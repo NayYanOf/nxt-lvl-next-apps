@@ -8,11 +8,60 @@ export default function InputsPage() {
         <>
             <h2>Inputs</h2>
 
-            <div>
+            <div className="flex flex-col gap-4 max-h-80 overflow-y-auto px-4">
                 <DynamicInput
+                    id="text-field"
                     placeholder='Campo de Texto'
                     onChange={(e) => console.log(e.target.value)}
-                    inputSize="md"
+                />
+
+                <DynamicInput
+                    id="number-field"
+                    type="number"
+                    placeholder="Campo de Número"
+                    min={1}
+                    max={10}
+                />
+
+                <DynamicInput
+                    id="pass-field"
+                    type="password"
+                    placeholder="Campo de Senha"
+                />
+
+                <DynamicInput
+                    id="checkbox-field"
+                    type="checkbox"
+                    label="Campo Checkbox"
+                />
+
+                <DynamicInput
+                    id="radio-field"
+                    type="radio"
+                    label="Campo Radio"
+                    radioOptions={[
+                        { label: 'Opção 1', value: 1, id: 'op1', defaultChecked: true },
+                        { label: 'Opção 2', value: 2, id: 'op2' },
+                        { label: 'Opção 3', value: 3, id: 'op3' },
+                    ]}
+                />
+
+                <DynamicInput
+                    id="date-field"
+                    type="date"
+                    label="Campo de Data"
+                />
+
+                <DynamicInput
+                    id="time-field"
+                    type="time"
+                    label="Campo de Tempo"
+                />
+
+                <DynamicInput
+                    id="datetime-field"
+                    type="datetime"
+                    label="Campo de Data e Tempo"
                 />
             </div>
 
