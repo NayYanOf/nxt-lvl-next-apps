@@ -1,5 +1,7 @@
 import { InputHTMLAttributes, useState } from "react";
 import { getIconByName } from "../../theme/icons/IconsFamily";
+import getMask from "../../utils/inputMasks";
+import { useMask } from "@react-input/mask";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     id: string;
@@ -15,10 +17,11 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
             id: string,
             defaultChecked?: boolean
         }>
+    mask?: string
 }
 
 export default function DynamicInput(props: InputProps) {
-    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, ...rest } = props;
+    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, mask, ...rest } = props;
     let input = null;
     const [showPassword, setShowPassword] = useState(false);
 
@@ -42,7 +45,7 @@ export default function DynamicInput(props: InputProps) {
     let fieldGrpStyles = 'flex flex-col gap-1'
     switch (type) {
         case 'text':
-            input = <input id={id} type='text' placeholder={placeholder} className={baseStyles} {...rest} />;
+            input = <input id={id} type='text' placeholder={placeholder} className={baseStyles} {...rest} ref={useMask(getMask(mask || ''))} />;
             break;
         case 'number':
             input = <input id={id} type='number' placeholder={placeholder} {...rest} className={baseStyles} />;

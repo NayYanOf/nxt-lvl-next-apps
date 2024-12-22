@@ -12,7 +12,12 @@ export default function InputsPage() {
                 <DynamicInput
                     id="text-field"
                     placeholder='Campo de Texto'
-                    onChange={(e) => console.log(e.target.value)}
+                />
+
+                <DynamicInput
+                    id="phone-field"
+                    placeholder='Campo de Telefone'
+                    mask='phone'
                 />
 
                 <DynamicInput
