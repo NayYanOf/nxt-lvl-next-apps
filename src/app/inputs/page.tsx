@@ -13,7 +13,6 @@ export default function InputsPage() {
                     id="text-field"
                     placeholder='Campo de Texto'
                     onChange={(e) => console.log(e.target.value)}
-                    inputSize="md"
                 />
 
                 <DynamicInput
@@ -41,7 +40,7 @@ export default function InputsPage() {
                     type="radio"
                     label="Campo Radio"
                     radioOptions={[
-                        { label: 'Opção 1', value: 1, id: 'op1' },
+                        { label: 'Opção 1', value: 1, id: 'op1', defaultChecked: true },
                         { label: 'Opção 2', value: 2, id: 'op2' },
                         { label: 'Opção 3', value: 3, id: 'op3' },
                     ]}

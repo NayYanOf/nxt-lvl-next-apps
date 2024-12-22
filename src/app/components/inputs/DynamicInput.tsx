@@ -12,7 +12,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
         {
             label: string,
             value: string | number,
-            id: string
+            id: string,
+            defaultChecked?: boolean
         }>
 }
 
@@ -96,7 +97,7 @@ export default function DynamicInput(props: InputProps) {
             input = input = <div className="flex flex-col gap-2">{
                 radioOptions?.map((i, index) => (
                     <div className="flex gap-2" key={index}>
-                        <input type="radio" id={i.id} name={id} value={i.value} className="hidden peer" />
+                        <input type="radio" id={i.id} name={id} value={i.value} defaultChecked={i.defaultChecked} className="hidden peer" />
                         <label htmlFor={i.id} className="
                             flex
                             items-center
