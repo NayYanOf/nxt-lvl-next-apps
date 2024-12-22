@@ -1,4 +1,9 @@
-import { FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
+import {
+    FiChevronsLeft,
+    FiChevronsRight,
+    FiEye,
+    FiEyeOff
+} from "react-icons/fi";
 import { ReactNode, ReactElement, cloneElement } from "react";
 
 type Icons = {
@@ -18,6 +23,16 @@ const icons: Record<string, Icons> = {
         Icon: <FiChevronsRight color="white" />,
         altText: 'Ícone de seta para a direita',
     },
+    eye: {
+        name: 'eye',
+        Icon: <FiEye color="white" />,
+        altText: 'Ícone de olho',
+    },
+    eyeOff: {
+        name: 'eye-off',
+        Icon: <FiEyeOff color="white" />,
+        altText: 'Ícone de olho fechado',
+    }
 };
 
 export const getIconByName = (name: string, color: string = 'white', size: number = 20): ReactNode | null => {

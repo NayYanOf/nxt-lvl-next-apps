@@ -17,8 +17,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body>
         <Header />
-        <main className="flex flex-col items-center justify-center gap-4 h-screen">
+        <main className="flex flex-col items-center justify-center gap-4 h-[90vh] mt-4">
           <h1>{process.env.NEXT_PUBLIC_APP_NAME}</h1>
+          <span>{`${process.env.NEXT_PUBLIC_APP_AUTHOR} | ${process.env.NEXT_PUBLIC_APP_COMPANY}`}</span>
           {children}
         </main>
         <Footer />
