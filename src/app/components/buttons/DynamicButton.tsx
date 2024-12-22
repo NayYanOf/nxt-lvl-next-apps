@@ -1,7 +1,9 @@
 import { ButtonHTMLAttributes, ReactNode, cloneElement, ReactElement, isValidElement } from "react";
+import Link from "next/link";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
+    link?: string;
     icon?: {
         render: ReactNode,
         color?: string;
@@ -14,7 +16,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export default function DynamicButton(props: ButtonProps) {
-    const { children, icon, variant = 'default', size = 'md', className, ...rest } = props;
+    const { children, link, icon, variant = 'default', size = 'md', className, ...rest } = props;
 
     let buttonStyle
     let iconStyle
@@ -64,13 +66,15 @@ export default function DynamicButton(props: ButtonProps) {
     const IconComponent = icon?.render && isValidElement(icon.render)
         ? cloneElement(icon.render as ReactElement, { color: icon.color || iconStyle, size: icon.size })
         : null;
-    const IconDirection = icon?.direction || 'right';
+    const IconDirection = icon?.direction || 'end';
 
     return (
-        <button {...rest} className={`rounded-sm flex justify-center items-center gap-2 border-2 border-solid font-medium transition-colors duration-300 ${buttonStyle} ${buttonSizing} ${className}`}>
-            {IconDirection === 'start' && IconComponent}
-            <span>{children}</span>
-            {IconDirection === 'end' && IconComponent}
-        </button>
+        <Link href={link || "#"}>
+            <button {...rest} className={`rounded-sm flex justify-center items-center gap-2 border-2 border-solid font-medium transition-colors duration-300 min-w-full ${buttonStyle} ${buttonSizing} ${className}`}>
+                {IconDirection === 'start' && IconComponent}
+                <span>{children}</span>
+                {IconDirection === 'end' && IconComponent}
+            </button>
+        </Link>
     )
 }

@@ -4,6 +4,7 @@ import { getIconByName } from "../../theme/icons/IconsFamily"
 
 interface ButtonContainerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     name: string,
+    link?: string,
     icon?: {
         name: string,
         color?: string,
@@ -15,11 +16,12 @@ interface ButtonContainerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export default function ButtonsContainer(props: ButtonContainerProps) {
-    const { name, icon, variant = 'default', size = 'md', ...rest } = props;
+    const { name, link, icon, variant = 'default', size = 'md', ...rest } = props;
     const IconComponent = icon ? getIconByName(icon.name) : null;
 
     return <DynamicButton
         {...rest}
+        link={link}
         icon={{
             render: IconComponent,
             color: icon?.color,

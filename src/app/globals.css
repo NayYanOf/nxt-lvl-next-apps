@@ -34,9 +34,16 @@ body {
   background: var(--bg-pr);
   font-family: Poppins, sans-serif;
 }
-
 @layer base {
+  h1 {
+    @apply text-3xl font-bold
+  }
+
   h2 {
     @apply text-2xl font-bold
+  }
+
+  input {
+    @apply outline-0
   }
 }
