@@ -52,12 +52,18 @@ export default function InputsPage() {
                     placeholder="Campo de Número"
                     min={1}
                     max={10}
+                    description={{
+                        text: 'Entre 1 e 10'
+                    }}
                 />
 
                 <DynamicInput
                     id="pass-field"
                     type="password"
                     placeholder="Campo de Senha"
+                    description={{
+                        text: 'Mínimo de 8 caracteres'
+                    }}
                 />
 
                 <DynamicInput

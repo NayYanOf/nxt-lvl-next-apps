@@ -21,10 +21,11 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     mask?: string
     onChange?: (e: any) => void
     cleanString?: boolean
+    description?: Description
 }
 
 export default function DynamicInput(props: InputProps) {
-    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, mask, onChange, cleanString, ...rest } = props;
+    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, mask, onChange, cleanString, description, ...rest } = props;
     let input = null;
     const [showPassword, setShowPassword] = useState(false);
 
@@ -157,6 +158,7 @@ export default function DynamicInput(props: InputProps) {
         <div className={fieldGrpStyles}>
             {label && type !== 'checkbox' && <label className="font-medium text-white" htmlFor={id} >{label}</label>}
             {input}
+            {description && <span className={`text-sm text-zinc-400 ${description.className}`}>{description.text}</span>}
         </div>
     )
 }
