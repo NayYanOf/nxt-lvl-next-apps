@@ -1,4 +1,4 @@
 interface Mask {
     mask: string;
-    replacement: {};
+    replacement?: { [key: string]: RegExp };
 }

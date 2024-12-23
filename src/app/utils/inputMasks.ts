@@ -1,7 +1,19 @@
 const masks: { [key: string]: Mask } = {
     phone: {
-        mask: '+0 (___) ___-__-__',
-        replacement: { _: /\d/ },
+        mask: '(__) _.____-____',
+        replacement: { _: /\d/ }
+    },
+    cpf: {
+        mask: '___.___.___-__',
+        replacement: { _: /\d/ }
+    },
+    cnpj: {
+        mask: '__.___.___/____-__',
+        replacement: { _: /\d/ }
+    },
+    cep: {
+        mask: '_____-___',
+        replacement: { _: /\d/ }
     }
 }
 

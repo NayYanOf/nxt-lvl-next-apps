@@ -2,6 +2,7 @@ import { InputHTMLAttributes, useState } from "react";
 import { getIconByName } from "../../theme/icons/IconsFamily";
 import getMask from "../../utils/inputMasks";
 import { useMask } from "@react-input/mask";
+import { cleanSpecialCharacters } from "../../utils/formatString";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     id: string;
@@ -18,10 +19,12 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
             defaultChecked?: boolean
         }>
     mask?: string
+    onChange?: (e: any) => void
+    cleanString?: boolean
 }
 
 export default function DynamicInput(props: InputProps) {
-    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, mask, ...rest } = props;
+    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, mask, onChange, cleanString, ...rest } = props;
     let input = null;
     const [showPassword, setShowPassword] = useState(false);
 
@@ -45,7 +48,14 @@ export default function DynamicInput(props: InputProps) {
     let fieldGrpStyles = 'flex flex-col gap-1'
     switch (type) {
         case 'text':
-            input = <input id={id} type='text' placeholder={placeholder} className={baseStyles} {...rest} ref={useMask(getMask(mask || ''))} />;
+            input = <input id={id} type='text' placeholder={placeholder} className={baseStyles} {...rest} ref={mask ? useMask(getMask(mask || '')) : null} onChange={e => {
+                if(cleanString) {
+                    const cleanedValue = cleanSpecialCharacters(e.target.value);
+                    onChange && onChange({ ...e, target: { ...e.target, value: cleanedValue } });
+                } else {
+                    onChange && onChange(e);
+                }
+            }} />;
             break;
         case 'number':
             input = <input id={id} type='number' placeholder={placeholder} {...rest} className={baseStyles} />;
