@@ -12,7 +12,38 @@ export default function InputsPage() {
                 <DynamicInput
                     id="text-field"
                     placeholder='Campo de Texto'
+                />
+
+                <DynamicInput
+                    id="phone-field"
+                    placeholder='Campo de Telefone'
+                    mask='phone'
                     onChange={(e) => console.log(e.target.value)}
+                    cleanString
+                />
+
+                <DynamicInput
+                    id="cpf-field"
+                    placeholder='Campo de CPF'
+                    mask='cpf'
+                    onChange={(e) => console.log(e.target.value)}
+                    cleanString
+                />
+
+                <DynamicInput
+                    id="cnpj-field"
+                    placeholder='Campo de CNPJ'
+                    mask='cnpj'
+                    onChange={(e) => console.log(e.target.value)}
+                    cleanString
+                />
+
+                <DynamicInput
+                    id="cep-field"
+                    placeholder='Campo de CEP'
+                    mask='cep'
+                    onChange={(e) => console.log(e.target.value)}
+                    cleanString
                 />
 
                 <DynamicInput
@@ -21,12 +52,18 @@ export default function InputsPage() {
                     placeholder="Campo de Número"
                     min={1}
                     max={10}
+                    description={{
+                        text: 'Entre 1 e 10'
+                    }}
                 />
 
                 <DynamicInput
                     id="pass-field"
                     type="password"
                     placeholder="Campo de Senha"
+                    description={{
+                        text: 'Mínimo de 8 caracteres'
+                    }}
                 />
 
                 <DynamicInput
