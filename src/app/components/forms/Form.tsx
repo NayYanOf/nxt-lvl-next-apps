@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 interface Form {
     defaultValues?: { [key: string]: unknown },
     children?: ReactElement,
-    onSubmit?: () => void
+    onSubmit?: (data: unknown) => void
 }
 
 export default function Form(props: Form) {
@@ -16,17 +16,17 @@ export default function Form(props: Form) {
         <form onSubmit={onSubmit ? handleSubmit(onSubmit) : undefined}>
             {
                 Children.map(children, (child) => {
-                    return child?.props.name
-                    ? createElement(child.type, {
-                        ...{
-                            ...child.props,
-                            register: methods.register,
-                            key: child.props.name
-                        }
-                    })
-                    : child
+                    return child?.props.id
+                        ? createElement(child.type, {
+                            ...{
+                                ...child.props,
+                                register: methods.register,
+                                key: child.props.id
+                            }
+                        })
+                        : child
                 })
-            }            
+            }
         </form>
     )
 }

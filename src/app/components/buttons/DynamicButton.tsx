@@ -68,13 +68,13 @@ export default function DynamicButton(props: ButtonProps) {
         : null;
     const IconDirection = icon?.direction || 'end';
 
-    return (
-        <Link href={link || "#"}>
-            <button {...rest} className={`rounded-sm flex justify-center items-center gap-2 border-2 border-solid font-medium transition-colors duration-300 min-w-full ${buttonStyle} ${buttonSizing} ${className}`}>
-                {IconDirection === 'start' && IconComponent}
-                <span>{children}</span>
-                {IconDirection === 'end' && IconComponent}
-            </button>
-        </Link>
+    const buttonElement = (
+        <button {...rest} type={variant === 'submit' ? 'submit' : 'button'} className={`rounded-sm flex justify-center items-center gap-2 border-2 border-solid font-medium transition-colors duration-300 min-w-full ${buttonStyle} ${buttonSizing} ${className}`}>
+            {IconDirection === 'start' && IconComponent}
+            <span>{children}</span>
+            {IconDirection === 'end' && IconComponent}
+        </button>
     )
+
+    return link ? <Link href={link}>{buttonElement}</Link> : buttonElement;
 }
