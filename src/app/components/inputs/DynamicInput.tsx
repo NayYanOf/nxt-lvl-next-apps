@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useEffect, useState } from "react";
+import { InputHTMLAttributes, useEffect, useState, ChangeEvent } from "react";
 import { getIconByName } from "../../theme/icons/IconsFamily";
 import getMask from "../../utils/inputMasks";
 import { useMask } from "@react-input/mask";
@@ -19,7 +19,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
             defaultChecked?: boolean
         }>
     mask?: string
-    onChange?: (e: any) => void
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void
     cleanString?: boolean
     description?: Description
     defaultChecked?: boolean
@@ -27,6 +27,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export default function DynamicInput(props: InputProps) {
     const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, mask, onChange, cleanString, description, defaultChecked, ...rest } = props;
+    const maskRef = useMask(mask ? getMask(mask) : undefined);
     let input = null;
 
     // PASSWORD
@@ -39,9 +40,15 @@ export default function DynamicInput(props: InputProps) {
     }
     useEffect(() => {
         if(onChange && type === 'checkbox') {
-            onChange(checked)
+            const event = {
+                target: {
+                    type: 'checkbox',
+                    checked: checked,
+                },
+            } as ChangeEvent<HTMLInputElement>;
+            onChange(event);
         }
-    }, [checked])
+    }, [checked, onChange, type])
 
     let inputSizing
     switch (inputSize) {
@@ -59,16 +66,20 @@ export default function DynamicInput(props: InputProps) {
             break;
     }
 
-    let baseStyles = `rounded-sm placeholder:text-zinc-400 placeholder:text-sm border-solid border-b-2 border-zinc-700 focus:border-blue-500 transition-all duration-300 bg-zinc-800 ${inputSizing}`;
+    const baseStyles = `rounded-sm placeholder:text-zinc-400 placeholder:text-sm border-solid border-b-2 border-zinc-700 focus:border-blue-500 transition-all duration-300 bg-zinc-800 ${inputSizing}`;
     let fieldGrpStyles = 'flex flex-col gap-1'
     switch (type) {
         case 'text':
-            input = <input id={id} type='text' placeholder={placeholder} className={baseStyles} {...rest} ref={mask ? useMask(getMask(mask || '')) : null} onChange={e => {
+            input = <input id={id} type='text' placeholder={placeholder} className={baseStyles} {...rest} ref={maskRef} onChange={e => {
                 if (cleanString) {
                     const cleanedValue = cleanSpecialCharacters(e.target.value);
-                    onChange && onChange({ ...e, target: { ...e.target, value: cleanedValue } });
+                    if (onChange) {
+                        onChange({ ...e, target: { ...e.target, value: cleanedValue } });
+                    }
                 } else {
-                    onChange && onChange(e);
+                    if(onChange) {
+                        onChange(e)
+                    }
                 }
             }} />;
             break;

@@ -66,7 +66,6 @@ export default function InputsPage() {
                     id="checkbox-field"
                     type="checkbox"
                     label="Campo Checkbox"
-                    defaultChecked
                 />
 
                 <DynamicInput
