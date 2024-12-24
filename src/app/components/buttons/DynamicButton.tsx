@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode, cloneElement, ReactElement, isValidElement } from "react";
 import Link from "next/link";
+import { ButtonTypes } from '../../types/types'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;

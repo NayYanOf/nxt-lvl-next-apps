@@ -1,3 +1,5 @@
+import { Mask } from '../types/types'
+
 const masks: { [key: string]: Mask } = {
     phone: {
         mask: '(__) _.____-____',

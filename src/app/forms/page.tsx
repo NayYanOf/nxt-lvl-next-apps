@@ -3,6 +3,7 @@
 import ButtonsContainer from "../components/buttons/ButtonsContainer";
 import Form from "../components/forms/Form";
 import DynamicInput from "../components/inputs/DynamicInput";
+import InputsContainer from "../components/inputs/InputsContainer";
 
 export default function Forms() {
     interface FirstForm {
@@ -21,12 +22,12 @@ export default function Forms() {
             <div className="flex flex-col gap-4">
                 <Form onSubmit={onSubmit}>
                     <div>
-                        <DynamicInput
+                        <InputsContainer
                             id="firstName"
                             label="Nome"
                             placeholder="Insira seu Primeiro Nome"
                             type="text"
-                            mask="phone"
+                            // mask="phone"
                         />
 
                         <DynamicInput

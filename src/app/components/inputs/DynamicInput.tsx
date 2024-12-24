@@ -1,36 +1,12 @@
-import { InputHTMLAttributes, useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import { getIconByName } from "../../theme/icons/IconsFamily";
-import getMask from "../../utils/inputMasks";
-import { useMask } from "@react-input/mask";
-import { cleanSpecialCharacters } from "../../utils/formatString";
-import { useFormContext, UseFormRegister } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
+import { InputProps } from "../../types/types";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-    id: string;
-    label?: string;
-    placeholder?: string;
-    type?: FieldTypes;
-    rows?: number;
-    inputSize?: 'sm' | 'md' | 'lg';
-    radioOptions?: Array<
-        {
-            label: string,
-            value: string | number,
-            id: string,
-            defaultChecked?: boolean
-        }>
-    mask?: string
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void
-    cleanString?: boolean
-    description?: Description
-    defaultChecked?: boolean
-}
-
-export default function DynamicInput(props: InputProps) {
-    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, mask, onChange, cleanString, description, defaultChecked, ...rest } = props;
+export default function DynamicInput<T>(props: InputProps<T>) {
+    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, onChange, description, defaultChecked, ...rest } = props;
     const formContext = useFormContext();
     const register = formContext ? formContext.register : (() => ({ onChange: () => {}, onBlur: () => {}, ref: () => {}, name: '' }));
-    const maskRef = useMask(mask ? getMask(mask) : undefined);
     let input = null;
 
     // PASSWORD
@@ -73,16 +49,19 @@ export default function DynamicInput(props: InputProps) {
     let fieldGrpStyles = 'flex flex-col gap-1'
     switch (type) {
         case 'text':
-            input = <input id={id} {...register(id)} type='text' placeholder={placeholder} className={baseStyles} {...rest} ref={mask ? maskRef : undefined} onChange={e => {
-                if (cleanString) {
-                    const cleanedValue = cleanSpecialCharacters(e.target.value);
-                    if (onChange) {
-                        onChange({ ...e, target: { ...e.target, value: cleanedValue } });
-                    }
-                } else {
-                    if(onChange) {
-                        onChange(e)
-                    }
+            input = <input id={id} {...register(id)} type='text' placeholder={placeholder} className={baseStyles} {...rest} onChange={e => {
+                // if (cleanString) {
+                //     const cleanedValue = cleanSpecialCharacters(e.target.value);
+                //     if (onChange) {
+                //         onChange({ ...e, target: { ...e.target, value: cleanedValue } });
+                //     }
+                // } else {
+                //     if(onChange) {
+                //         onChange(e)
+                //     }
+                // }
+                if(onChange) {
+                    onChange(e)
                 }
             }} />;
             break;

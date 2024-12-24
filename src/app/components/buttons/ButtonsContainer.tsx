@@ -1,6 +1,7 @@
 import DynamicButton from "./DynamicButton"
 import { ButtonHTMLAttributes } from "react"
 import { getIconByName } from "../../theme/icons/IconsFamily"
+import { ButtonTypes } from '../../types/types'
 
 interface ButtonContainerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     name: string,
