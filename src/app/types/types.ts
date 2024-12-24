@@ -8,13 +8,6 @@ interface Description {
     className?: string;
 }
 
-enum ButtonTypes {
-    default = 'default',
-    transparent = 'transparent',
-    submit = 'submit',
-    cancel = 'cancel',
-    off = 'off'
-}
-
+type ButtonTypes = 'default' | 'transparent' | 'submit' | 'cancel' | 'off'
 
 type FieldTypes = 'text' | 'password' | 'checkbox' | 'radio' | 'date' | 'time' | 'datetime' | 'number';
