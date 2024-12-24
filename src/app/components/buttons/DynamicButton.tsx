@@ -10,7 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
         size?: number;
         direction?: 'start' | 'end';
     };
-    variant?: 'default' | 'transparent' | 'submit' | 'cancel' | 'off'
+    variant?: ButtonTypes
     size?: 'sm' | 'md' | 'lg';
     className?: string;
 }

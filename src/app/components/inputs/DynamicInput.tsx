@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     id: string;
     label?: string;
     placeholder?: string;
-    type?: 'text' | 'number' | 'password' | 'checkbox' | 'radio' | 'date' | 'time' | 'datetime';
+    type?: FieldTypes;
     rows?: number;
     inputSize?: 'sm' | 'md' | 'lg';
     radioOptions?: Array<
