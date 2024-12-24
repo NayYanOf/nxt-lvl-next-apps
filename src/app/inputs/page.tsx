@@ -18,7 +18,6 @@ export default function InputsPage() {
                     id="phone-field"
                     placeholder='Campo de Telefone'
                     mask='phone'
-                    onChange={(e) => console.log(e.target.value)}
                     cleanString
                 />
 
@@ -26,7 +25,6 @@ export default function InputsPage() {
                     id="cpf-field"
                     placeholder='Campo de CPF'
                     mask='cpf'
-                    onChange={(e) => console.log(e.target.value)}
                     cleanString
                 />
 
@@ -34,7 +32,6 @@ export default function InputsPage() {
                     id="cnpj-field"
                     placeholder='Campo de CNPJ'
                     mask='cnpj'
-                    onChange={(e) => console.log(e.target.value)}
                     cleanString
                 />
 
@@ -42,7 +39,6 @@ export default function InputsPage() {
                     id="cep-field"
                     placeholder='Campo de CEP'
                     mask='cep'
-                    onChange={(e) => console.log(e.target.value)}
                     cleanString
                 />
 
@@ -70,6 +66,7 @@ export default function InputsPage() {
                     id="checkbox-field"
                     type="checkbox"
                     label="Campo Checkbox"
+                    defaultChecked
                 />
 
                 <DynamicInput
