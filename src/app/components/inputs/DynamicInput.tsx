@@ -3,7 +3,7 @@ import { getIconByName } from "../../theme/icons/IconsFamily";
 import getMask from "../../utils/inputMasks";
 import { useMask } from "@react-input/mask";
 import { cleanSpecialCharacters } from "../../utils/formatString";
-import { UseFormRegister } from "react-hook-form";
+import { useFormContext, UseFormRegister } from "react-hook-form";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     id: string;
@@ -24,11 +24,12 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     cleanString?: boolean
     description?: Description
     defaultChecked?: boolean
-    register?: UseFormRegister<Record<string, unknown>>
 }
 
 export default function DynamicInput(props: InputProps) {
-    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, mask, onChange, cleanString, description, defaultChecked, register, ...rest } = props;
+    const { id, label, placeholder, type = 'text', multiple, rows, inputSize, radioOptions, mask, onChange, cleanString, description, defaultChecked, ...rest } = props;
+    const formContext = useFormContext();
+    const register = formContext ? formContext.register : (() => ({ onChange: () => {}, onBlur: () => {}, ref: () => {}, name: '' }));
     const maskRef = useMask(mask ? getMask(mask) : undefined);
     let input = null;
 
@@ -72,7 +73,7 @@ export default function DynamicInput(props: InputProps) {
     let fieldGrpStyles = 'flex flex-col gap-1'
     switch (type) {
         case 'text':
-            input = <input id={id} type='text' placeholder={placeholder} className={baseStyles} {...rest} ref={mask ? maskRef : undefined} {...(register && register(id))} onChange={e => {
+            input = <input id={id} {...register(id)} type='text' placeholder={placeholder} className={baseStyles} {...rest} ref={mask ? maskRef : undefined} onChange={e => {
                 if (cleanString) {
                     const cleanedValue = cleanSpecialCharacters(e.target.value);
                     if (onChange) {
@@ -86,11 +87,11 @@ export default function DynamicInput(props: InputProps) {
             }} />;
             break;
         case 'number':
-            input = <input id={id} type='number' placeholder={placeholder} {...rest} className={baseStyles} onChange={onChange} {...(register && register(id))} />;
+            input = <input id={id} {...register(id)} type='number' placeholder={placeholder} {...rest} className={baseStyles} onChange={onChange} />;
             break;
         case 'password':
             input = <div className="flex relative">
-                <input id={id} type={showPassword ? 'text' : 'password'} placeholder={placeholder} {...rest} className={baseStyles} onChange={onChange} {...(register && register(id))} />
+                <input id={id} {...register(id)} type={showPassword ? 'text' : 'password'} placeholder={placeholder} {...rest} className={baseStyles} onChange={onChange} />
                 <div className="absolute right-2 top-2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
                     {
                         getIconByName(showPassword ? 'eyeOff' : 'eye', 'white', 16)
@@ -100,7 +101,7 @@ export default function DynamicInput(props: InputProps) {
             break;
         case 'checkbox':
             input = <div className="flex gap-2">
-                <input id={id} type='checkbox' {...rest} className='hidden peer' onChange={checkHandler} checked={checked} {...(register && register(id))} />
+                <input id={id} {...register(id)} type='checkbox' {...rest} className='hidden peer' onChange={checkHandler} checked={checked} />
                 <label
                     className="
                         flex
@@ -138,7 +139,7 @@ export default function DynamicInput(props: InputProps) {
             input = input = <div className="flex flex-col gap-2">{
                 radioOptions?.map((i, index) => (
                     <div className="flex gap-2" key={index}>
-                        <input type="radio" id={i.id} name={id} value={i.value} defaultChecked={i.defaultChecked} className="hidden peer" onChange={onChange} {...(register && register(id))} />
+                        <input type="radio" id={i.id} {...register(id)} name={id} value={i.value} defaultChecked={i.defaultChecked} className="hidden peer" onChange={onChange} />
                         <label htmlFor={i.id} className="
                             flex
                             items-center
@@ -168,16 +169,16 @@ export default function DynamicInput(props: InputProps) {
             fieldGrpStyles = 'gap-2'
             break;
         case 'date':
-            input = <input id={id} type='date' {...rest} className={`${baseStyles} bw-input-icon-color`} onChange={onChange} {...(register && register(id))} />;
+            input = <input id={id} {...register(id)} type='date' {...rest} className={`${baseStyles} bw-input-icon-color`} onChange={onChange} />;
             break;
         case 'time':
-            input = <input id={id} type='time' {...rest} className={`${baseStyles} bw-input-icon-color`} onChange={onChange} {...(register && register(id))} />;
+            input = <input id={id} {...register(id)} type='time' {...rest} className={`${baseStyles} bw-input-icon-color`} onChange={onChange} />;
             break;
         case 'datetime':
-            input = <input id={id} type='datetime-local' {...rest} className={`${baseStyles} bw-input-icon-color`} onChange={onChange} {...(register && register(id))} />;
+            input = <input id={id} {...register(id)} type='datetime-local' {...rest} className={`${baseStyles} bw-input-icon-color`} onChange={onChange} />;
             break;
         default:
-            input = <input id={id} type='text' placeholder={placeholder} {...rest} className={baseStyles} onChange={onChange} {...(register && register(id))} />;
+            input = <input id={id} {...register(id)} type='text' placeholder={placeholder} {...rest} className={baseStyles} onChange={onChange} />;
             break;
     }
 

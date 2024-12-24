@@ -5,19 +5,37 @@ import Form from "../components/forms/Form";
 import DynamicInput from "../components/inputs/DynamicInput";
 
 export default function Forms() {
-    const onSubmit = (data) => console.log(data)
+    interface FirstForm {
+        firstName: string,
+        lastName: string,
+    }
+
+    const onSubmit = (data: unknown): void => {
+        const formData = data as FirstForm;
+        console.log(formData);
+    };
 
     return (
         <>
             <h2>Formulário</h2>
             <div className="flex flex-col gap-4">
                 <Form onSubmit={onSubmit}>
-                    <DynamicInput
-                        id="firstName"
-                        label="Nome"
-                        placeholder="Insira seu Primeiro Nome"
-                        type="text"
-                    />
+                    <div>
+                        <DynamicInput
+                            id="firstName"
+                            label="Nome"
+                            placeholder="Insira seu Primeiro Nome"
+                            type="text"
+                            mask="phone"
+                        />
+
+                        <DynamicInput
+                            id="lastName"
+                            label="Sobrenome"
+                            placeholder="Insira seu Sobrenome"
+                            type="text"
+                        />
+                    </div>
 
                     <ButtonsContainer
                         name='Enviar'
