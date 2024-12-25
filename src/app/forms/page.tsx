@@ -27,10 +27,10 @@ export default function Forms() {
                             label="Nome"
                             placeholder="Insira seu Primeiro Nome"
                             type="text"
-                            // mask="phone"
+                            cleanString={true} // FAZER FUNCIONAR PARA OS VALORES RETORNADOS EM DATA DO ON SUBMIT
                         />
 
-                        <DynamicInput
+                        <InputsContainer
                             id="lastName"
                             label="Sobrenome"
                             placeholder="Insira seu Sobrenome"

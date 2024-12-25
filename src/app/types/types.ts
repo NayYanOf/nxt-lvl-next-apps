@@ -1,4 +1,5 @@
-import { InputHTMLAttributes, ChangeEvent, Ref } from "react";
+import { InputHTMLAttributes, ChangeEvent } from "react";
+import { UseFormRegister, FieldValues } from 'react-hook-form';
 
 export interface Mask {
     mask: string;
@@ -14,7 +15,7 @@ export type ButtonTypes = 'default' | 'transparent' | 'submit' | 'cancel' | 'off
 
 export type FieldTypes = 'text' | 'password' | 'checkbox' | 'radio' | 'date' | 'time' | 'datetime' | 'number';
 
-export interface InputProps<T> extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps<T extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
     id: string;
     label?: string;
     placeholder?: string;
@@ -31,4 +32,6 @@ export interface InputProps<T> extends InputHTMLAttributes<HTMLInputElement> {
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void
     description?: Description
     defaultChecked?: boolean
+    cleanString?: boolean
+    register?: UseFormRegister<T>;
 }

@@ -1,27 +1,28 @@
 import DynamicInput from "./DynamicInput"
 import { InputProps } from "../../types/types";
+import { useFormContext, FieldValues, UseFormRegister } from "react-hook-form";
+import { useHookFormMask } from 'use-mask-input';
 import getMask from "../../utils/inputMasks";
-import { useMask, InputMask } from "@react-input/mask";
-import { cleanSpecialCharacters } from "../../utils/formatString";
 
-interface InputContainerProps<T> extends InputProps<T> {
+interface InputsContainerProps<T extends FieldValues> extends InputProps<T> {
     mask?: string
-    cleanString?: boolean
 }
 
-export default function InputsContainerContainer<T>(props: InputContainerProps<T>) {
-    const { mask, cleanString } = props
-    let currentMask
-    if(mask) {
-        currentMask = getMask(mask)
-    }
+export default function InputsContainerContainer<T extends FieldValues>(props: InputsContainerProps<T>) {
+    const { id, mask, ...rest } = props
+
+    const formContext = useFormContext();
+    const emptyRegister = (() => ({ onChange: async () => { }, onBlur: async () => { }, ref: () => { }, name: '' })) as unknown as UseFormRegister<FieldValues>
+    const register = formContext ? formContext.register : emptyRegister;
+    const registerWithMask = useHookFormMask(register);
+    const finalRegister = mask && registerWithMask
+        ? registerWithMask(id, getMask(mask).mask, { required: false })
+        : register(id);
 
     return (
-        <InputMask
-            {...props}
-            component={DynamicInput}
-            mask={currentMask?.mask}
-            replacement={currentMask?.replacement}
+        <DynamicInput
+            {...rest}
+            register={finalRegister}
         />
     )
 }
