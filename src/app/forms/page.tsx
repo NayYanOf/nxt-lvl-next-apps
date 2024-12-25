@@ -1,11 +1,13 @@
 "use client"
 
+import { useState } from "react";
 import ButtonsContainer from "../components/buttons/ButtonsContainer";
 import Form from "../components/forms/Form";
 import DynamicInput from "../components/inputs/DynamicInput";
 import InputsContainer from "../components/inputs/InputsContainer";
 
 export default function Forms() {
+    const [submitResult, setSubmitResult] = useState(null)
     interface FirstForm {
         firstName: string,
         lastName: string,
@@ -13,15 +15,17 @@ export default function Forms() {
 
     const onSubmit = (data: unknown): void => {
         const formData = data as FirstForm;
-        console.log(formData);
+        setSubmitResult(formData)
     };
+
+    const buttonsStyle = 'mt-8 min-w-52 justify-self-center'
 
     return (
         <>
             <h2>Formulário</h2>
             <div className="flex flex-col gap-4">
                 <Form onSubmit={onSubmit}>
-                    <div>
+                    <div className="flex gap-4 p-6 border-solid border-zinc-500 border-[1px] rounded-md">
                         <InputsContainer
                             id="firstName"
                             label="Nome"
@@ -37,10 +41,24 @@ export default function Forms() {
                             type="text"
                         />
                     </div>
+                    
+                    {
+                        submitResult &&
+                        <div className="flex flex-col gap-2 mt-4" >
+                            <span className="text-center font-semibold">Resultado</span>
+                            <div className="flex gap-4 justify-center" >
+                                {
+                                    Object.entries(submitResult).map(([key, value]) => (
+                                        <div key={key}>{`${key}: ${value}`}</div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    }
 
                     <ButtonsContainer
                         name='Enviar'
-                        className='my-4'
+                        className={`${buttonsStyle}`}
                         variant="submit"
                     />
                 </Form>
@@ -48,7 +66,7 @@ export default function Forms() {
                 <ButtonsContainer
                     name='Voltar à Home'
                     link='/'
-                    className='my-8'
+                    className={`${buttonsStyle}`}
                     icon={{
                         name: 'chevronLeft',
                         direction: 'start'
