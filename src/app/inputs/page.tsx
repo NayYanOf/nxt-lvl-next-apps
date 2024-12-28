@@ -2,6 +2,7 @@
 
 import ButtonsContainer from "../components/buttons/ButtonsContainer";
 import DynamicInput from "../components/inputs/DynamicInput";
+import DynamicSelect from "../components/inputs/DynamicSelect";
 
 export default function InputsPage() {
     return (
@@ -95,6 +96,17 @@ export default function InputsPage() {
                     id="datetime-field"
                     type="datetime"
                     label="Campo de Data e Tempo"
+                />
+
+                <DynamicSelect
+                    id="gender"
+                    label="Gênero"
+                    placeholder="Selecione seu Gênero"
+                    options={[
+                        {label: 'Masculino', value: 'male'},
+                        {label: 'Feminino', value: 'female'},
+                        {label: 'Outro', value: 'other'}
+                    ]}
                 />
             </div>
 
