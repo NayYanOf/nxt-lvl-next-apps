@@ -22,3 +22,8 @@ export interface Map {
 }
 
 export type Sizes = 'sm' | 'md' | 'lg'
+
+export interface Modal {
+    id: string,
+    active: boolean
+}
