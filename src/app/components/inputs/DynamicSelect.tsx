@@ -15,7 +15,7 @@ interface DynamicSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 export default function DynamicSelect(props: DynamicSelectProps) {
-    const { id, label, placeholder, inputSize, options, multiple } = props
+    const { id, label, placeholder, inputSize, options, multiple, ...rest } = props
 
     let inputSizing
     switch (inputSize) {
@@ -38,10 +38,17 @@ export default function DynamicSelect(props: DynamicSelectProps) {
 
     return (
         <div className={`${fieldGrpStyles}`} >
-            {label && <label>{label}</label>}
-            <select className={`${baseStyles}`} >
+            {label && <label htmlFor={id}>{label}</label>}
+            <select id={id} className={`${baseStyles}`} {...rest} >
                 {placeholder && <option value='null'>{placeholder}</option>}
-                {options && cMap({ arr: options, element: <option></option>, childrenField: 'label' })}
+                {
+                    options ? cMap({
+                        arr: options,
+                        element: <option></option>,
+                        childrenField: 'label',
+                        arrResult: multiple
+                    }) : null
+                }
             </select>
         </div>
     )

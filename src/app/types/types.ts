@@ -17,7 +17,8 @@ type FieldTypes = 'text' | 'password' | 'checkbox' | 'radio' | 'date' | 'time' |
 export interface Map {
     arr: Record<string, unknown>[],
     element: ReactElement,
-    childrenField?: string
+    childrenField?: string,
+    arrResult?: boolean
 }
 
 export type Sizes = 'sm' | 'md' | 'lg'

@@ -107,6 +107,7 @@ export default function InputsPage() {
                         {label: 'Feminino', value: 'female'},
                         {label: 'Outro', value: 'other'}
                     ]}
+                    onChange={e => console.log(e.target.value)}
                 />
             </div>
 
