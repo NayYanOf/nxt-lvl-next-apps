@@ -2,6 +2,7 @@
 
 import ButtonsContainer from "../components/buttons/ButtonsContainer";
 import DynamicInput from "../components/inputs/DynamicInput";
+import DynamicTextarea from "../components/inputs/DynamicTextarea";
 
 export default function InputsPage() {
     return (
@@ -95,6 +96,12 @@ export default function InputsPage() {
                     id="datetime-field"
                     type="datetime"
                     label="Campo de Data e Tempo"
+                />
+
+                <DynamicTextarea
+                    id="biography"
+                    label="Biografia"
+                    placeholder="Escreva sua biografia"
                 />
             </div>
 
