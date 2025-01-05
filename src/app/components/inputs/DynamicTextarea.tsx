@@ -3,11 +3,12 @@ import { TextareaHTMLAttributes } from "react";
 interface DynamicTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     id: string,
     label?: string,
-    inputSize?: 'sm' | 'md' | 'lg'
+    inputSize?: 'sm' | 'md' | 'lg',
+    formatted?: boolean
 }
 
 export default function DynamicTextarea(props: DynamicTextareaProps) {
-    const { id, label, inputSize, ...rest } = props
+    const { id, label, inputSize, formatted, ...rest } = props
 
     const fieldGrpStyles = 'flex flex-col gap-1'
 
@@ -32,11 +33,17 @@ export default function DynamicTextarea(props: DynamicTextareaProps) {
     return (
         <div className={`${fieldGrpStyles}`} >
             {label && <label htmlFor={id} >{label}</label>}
-            <textarea
-                id={id}
-                {...rest}
-                className={`${baseStyles} ${inputSizing}`}
-            />
+            {
+                formatted ? (
+                    null
+                ) : (
+                    <textarea
+                        id={id}
+                        {...rest}
+                        className={`${baseStyles} ${inputSizing}`}
+                    />
+                )
+            }
         </div>
     )
 }

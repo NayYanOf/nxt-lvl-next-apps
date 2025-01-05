@@ -103,6 +103,13 @@ export default function InputsPage() {
                     label="Biografia"
                     placeholder="Escreva sua biografia"
                 />
+
+                <DynamicTextarea
+                    id="description"
+                    label="Descrição"
+                    placeholder="Escreva a descrição"
+                    formatted
+                />
             </div>
 
             <ButtonsContainer
