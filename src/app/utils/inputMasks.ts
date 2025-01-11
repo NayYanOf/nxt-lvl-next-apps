@@ -1,18 +1,20 @@
+import { Mask } from '../types/types'
+
 const masks: { [key: string]: Mask } = {
     phone: {
-        mask: '(__) _.____-____',
+        mask: '(99) 9.9999-9999',
         replacement: { _: /\d/ }
     },
     cpf: {
-        mask: '___.___.___-__',
+        mask: '999.999.999-99',
         replacement: { _: /\d/ }
     },
     cnpj: {
-        mask: '__.___.___/____-__',
+        mask: '99.999.999/9999-99',
         replacement: { _: /\d/ }
     },
     cep: {
-        mask: '_____-___',
+        mask: '99999-999',
         replacement: { _: /\d/ }
     }
 }
