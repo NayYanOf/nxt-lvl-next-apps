@@ -18,7 +18,7 @@ export function Row(props: Row) {
     )
 
     return (
-        <div className={`flex ${hasNestedRow ? 'flex-col' : 'flex-row'} flex-wrap gap-4 items-center ${className}`} {...rest} >
+        <div className={`flex ${hasNestedRow ? 'flex-col' : 'flex-row'} flex-wrap gap-4 items-center w-full ${className}`} {...rest} >
             {children}
         </div>
     )

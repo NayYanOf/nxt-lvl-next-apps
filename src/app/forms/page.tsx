@@ -3,7 +3,8 @@
 import ButtonsContainer from "../components/buttons/ButtonsContainer";
 import Form from "../components/forms/Form";
 import DynamicInput from "../components/inputs/DynamicInput";
-import { Row, Col } from '../components/flex/flexMounters';
+import DynamicSelect from "../components/inputs/DynamicSelect";
+import { Row, Col } from "../components/flex/flexMounters";
 
 export default function Forms() {
     interface FirstForm {
@@ -22,29 +23,35 @@ export default function Forms() {
             <div className="flex flex-col gap-4">
                 <Form onSubmit={onSubmit}>
                     <Row>
-                        <Col>
-                            <DynamicInput
-                                id="firstName"
-                                label="Nome"
-                                placeholder="Insira seu Primeiro Nome"
-                                type="text"
-                            />
-                        </Col>
+                        <Row>
+                            <Col>
+                                <DynamicInput
+                                    id="firstName"
+                                    label="Nome"
+                                    placeholder="Insira seu Primeiro Nome"
+                                    type="text"
+                                />
+                            </Col>
 
-                        <Col>
-                            <DynamicInput
-                                id="lastName"
-                                label="Sobrenome"
-                                placeholder="Insira seu Sobrenome"
-                                type="text"
-                            />
-                        </Col>
-                    </Row>
+                            <Col>
+                                <DynamicInput
+                                    id="lastName"
+                                    label="Sobrenome"
+                                    placeholder="Insira seu Sobrenome"
+                                    type="text"
+                                />
+                            </Col>
+                        </Row>
 
-                    <Row>
-                        <Col>
-
-                        </Col>
+                        <Row>
+                            <Col>
+                                <DynamicSelect
+                                    id="gender"
+                                    label="Gênero"
+                                    placeholder="Selecione o seu Gênero"
+                                />
+                            </Col>
+                        </Row>
                     </Row>
 
                     <ButtonsContainer
