@@ -3,6 +3,7 @@
 import ButtonsContainer from "../components/buttons/ButtonsContainer";
 import DynamicInput from "../components/inputs/DynamicInput";
 import DynamicSelect from "../components/inputs/DynamicSelect";
+import DynamicTextarea from "../components/inputs/DynamicTextarea";
 
 export default function InputsPage() {
     return (
@@ -123,6 +124,19 @@ export default function InputsPage() {
                         { label: 'Outro', value: 'other' }
                     ]}
                     onChange={e => console.log(e.target.value)}
+                />
+                  
+                <DynamicTextarea
+                    id="biography"
+                    label="Biografia"
+                    placeholder="Escreva sua biografia"
+                />
+
+                <DynamicTextarea
+                    id="description"
+                    label="Descrição"
+                    placeholder="Escreva a descrição"
+                    formatted
                 />
             </div>
 

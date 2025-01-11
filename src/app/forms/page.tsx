@@ -3,6 +3,7 @@
 import ButtonsContainer from "../components/buttons/ButtonsContainer";
 import Form from "../components/forms/Form";
 import DynamicInput from "../components/inputs/DynamicInput";
+import { Row, Col } from '../components/flex/flexMounters';
 
 export default function Forms() {
     interface FirstForm {
@@ -20,22 +21,31 @@ export default function Forms() {
             <h2>Formulário</h2>
             <div className="flex flex-col gap-4">
                 <Form onSubmit={onSubmit}>
-                    <div>
-                        <DynamicInput
-                            id="firstName"
-                            label="Nome"
-                            placeholder="Insira seu Primeiro Nome"
-                            type="text"
-                            mask="phone"
-                        />
+                    <Row>
+                        <Col>
+                            <DynamicInput
+                                id="firstName"
+                                label="Nome"
+                                placeholder="Insira seu Primeiro Nome"
+                                type="text"
+                            />
+                        </Col>
 
-                        <DynamicInput
-                            id="lastName"
-                            label="Sobrenome"
-                            placeholder="Insira seu Sobrenome"
-                            type="text"
-                        />
-                    </div>
+                        <Col>
+                            <DynamicInput
+                                id="lastName"
+                                label="Sobrenome"
+                                placeholder="Insira seu Sobrenome"
+                                type="text"
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col>
+
+                        </Col>
+                    </Row>
 
                     <ButtonsContainer
                         name='Enviar'
