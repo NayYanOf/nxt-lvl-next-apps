@@ -5,6 +5,7 @@ import ButtonsContainer from "../components/buttons/ButtonsContainer";
 import Form from "../components/forms/Form";
 import DynamicInput from "../components/inputs/DynamicInput";
 import InputsContainer from "../components/inputs/InputsContainer";
+import { Row, Col } from '../components/flex/flexMounters';
 
 export default function Forms() {
     const [submitResult, setSubmitResult] = useState(null)

@@ -2,6 +2,8 @@
 
 import ButtonsContainer from "../components/buttons/ButtonsContainer";
 import DynamicInput from "../components/inputs/DynamicInput";
+import DynamicSelect from "../components/inputs/DynamicSelect";
+import DynamicTextarea from "../components/inputs/DynamicTextarea";
 
 export default function InputsPage() {
     return (
@@ -9,6 +11,21 @@ export default function InputsPage() {
             <h2>Inputs</h2>
 
             <div className="flex flex-col gap-4 max-h-80 overflow-y-auto px-4">
+            <div className="max-w-56">
+                    <DynamicSelect
+                        id="hobbies"
+                        label="Hobbies"
+                        placeholder="Selecione seus Hobbies"
+                        options={[
+                            { label: 'Filmes', value: 'movies' },
+                            { label: 'Series', value: 'series' },
+                            { label: 'Jogos', value: 'games' },
+                            { label: 'Livros', value: 'books' },
+                        ]}
+                        multiple
+                    />
+                </div>
+
                 <DynamicInput
                     id="text-field"
                     placeholder='Campo de Texto'
@@ -95,6 +112,31 @@ export default function InputsPage() {
                     id="datetime-field"
                     type="datetime"
                     label="Campo de Data e Tempo"
+                />
+
+                <DynamicSelect
+                    id="gender"
+                    label="Gênero"
+                    placeholder="Selecione seu Gênero"
+                    options={[
+                        { label: 'Masculino', value: 'male' },
+                        { label: 'Feminino', value: 'female' },
+                        { label: 'Outro', value: 'other' }
+                    ]}
+                    onChange={e => console.log(e.target.value)}
+                />
+                  
+                <DynamicTextarea
+                    id="biography"
+                    label="Biografia"
+                    placeholder="Escreva sua biografia"
+                />
+
+                <DynamicTextarea
+                    id="description"
+                    label="Descrição"
+                    placeholder="Escreva a descrição"
+                    formatted
                 />
             </div>
 

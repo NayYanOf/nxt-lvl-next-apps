@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ChangeEvent } from "react";
+import { InputHTMLAttributes, ChangeEvent, ReactElement } from "react";
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 
 export interface Mask {
@@ -34,4 +34,18 @@ export interface InputProps<T extends FieldValues> extends InputHTMLAttributes<H
     defaultChecked?: boolean
     cleanString?: boolean
     register?: UseFormRegister<T>;
+type FieldTypes = 'text' | 'password' | 'checkbox' | 'radio' | 'date' | 'time' | 'datetime' | 'number';
+
+export interface Map {
+    arr: Record<string, unknown>[],
+    element: ReactElement,
+    childrenField?: string,
+    arrResult?: boolean
+}
+
+export type Sizes = 'sm' | 'md' | 'lg'
+
+export interface Modal {
+    id: string,
+    active: boolean
 }
